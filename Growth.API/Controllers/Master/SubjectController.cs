@@ -89,7 +89,7 @@ namespace Growth.API.Controllers.Master
         {
             logger.LogInformation($"Delete subject with id {id}");
             var result = subject.Delete(id);
-            logger.LogInformation($"Delted Subject Response: {result.ToString()}");
+            logger.LogInformation($"Deleted Subject Response: {result.ToString()}");
             return Ok(result);
         }
     }

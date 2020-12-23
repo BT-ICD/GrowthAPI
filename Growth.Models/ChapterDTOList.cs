@@ -6,14 +6,19 @@ using System.Text;
 namespace Growth.Models
 {
     /// <summary>
-    /// To manipulate details of particular subject
+    /// To get list of chapters
     /// </summary>
-    public class SubjectDTODetail: SubjectDTOAdd
+    public class ChapterDTOList
     {
-        public int SubjectId { get; set; }
+        public int ChapterId { get; set; }
+        public int ChapterSrNo { get; set; }
+        public string Name { get; set; }
+        public string Notes { get; set; }
+
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }
     }
+    
 }

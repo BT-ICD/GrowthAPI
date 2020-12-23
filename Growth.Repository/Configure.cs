@@ -13,6 +13,8 @@ namespace Growth.Repository
         {
             DAL.Configure.ConfigureServices(services, connectionString);
             services.AddScoped<ISubject, SubjectRepository>();
+            services.AddScoped<IChapter, ChapterRepository>();
+            services.AddScoped<ITopic, TopicRepository>();
         }
     }
 }

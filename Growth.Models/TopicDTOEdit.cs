@@ -6,14 +6,16 @@ using System.Text;
 namespace Growth.Models
 {
     /// <summary>
-    /// To manipulate details of particular subject
+    /// To edit details of existing topic
     /// </summary>
-    public class SubjectDTODetail: SubjectDTOAdd
+    public class TopicDTOEdit:TopicDTOAdd
     {
-        public int SubjectId { get; set; }
+        public int TopicId { get; set; }
+
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }
+
     }
 }
