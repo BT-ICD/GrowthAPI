@@ -15,6 +15,7 @@ namespace Growth.Repository
             services.AddScoped<ISubject, SubjectRepository>();
             services.AddScoped<IChapter, ChapterRepository>();
             services.AddScoped<ITopic, TopicRepository>();
+            services.AddScoped<IBatch, BatchRepository>();
         }
     }
 }
