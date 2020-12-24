@@ -54,11 +54,11 @@ namespace Growth.Repository.Repositories
             }
         }
 
-        public List<TopicDTOList> GetList(int subjectId)
+        public List<TopicDTOList> GetList(int chapterId)
         {
             using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
-                return cnn.Query<TopicDTOList>("Topic_List", new { SubjectId = subjectId }, null, false, null, CommandType.StoredProcedure).ToList();
+                return cnn.Query<TopicDTOList>("Topic_List", new { ChapterId = chapterId }, null, false, null, CommandType.StoredProcedure).ToList();
             }
         }
     }

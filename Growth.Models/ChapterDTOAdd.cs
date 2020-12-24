@@ -12,7 +12,7 @@ namespace Growth.Models
         public int ChapterSrNo { get; set; }
         
         [Required(ErrorMessage ="Chapter Name is required")]
-        [StringLength(200,ErrorMessage ="Length of Name must within {0} and {1}", MinimumLength =5)]
+        [StringLength(200,ErrorMessage ="Length of Name must within 5 and 200", MinimumLength =5)]
         public string Name { get; set; }
        
         public int SubjectId { get; set; }

@@ -7,7 +7,7 @@ namespace Growth.Repository.Interfaces
 {
     public interface ITopic
     {
-        List<TopicDTOList> GetList(int subjectId);
+        List<TopicDTOList> GetList(int chapterId);
         TopicDTOEdit GetById(int topicId);
         TopicDTOEdit Add(TopicDTOAdd topicDTOAdd);
         TopicDTOEdit Edit(TopicDTOEdit topicDTOEdit);
