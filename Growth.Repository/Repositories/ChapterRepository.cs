@@ -21,11 +21,11 @@ namespace Growth.Repository.Repositories
             this.appConnectionString = appConnectionString;
         }
 
-        public ChapterDTOEdit Add(ChapterDTOAdd chapterDTOAdd)
+        public ChapterDTODetail Add(ChapterDTOAdd chapterDTOAdd)
         {
             using(IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
-                return cnn.Query<ChapterDTOEdit>("Chapter_Insert", new { chapterDTOAdd.ChapterSrNo, chapterDTOAdd.Name, chapterDTOAdd.SubjectId, chapterDTOAdd.Notes }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
+                return cnn.Query<ChapterDTODetail>("Chapter_Insert", new { chapterDTOAdd.ChapterSrNo, chapterDTOAdd.Name, chapterDTOAdd.SubjectId, chapterDTOAdd.Notes }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 
@@ -37,19 +37,19 @@ namespace Growth.Repository.Repositories
             }
         }
 
-        public ChapterDTOEdit Edit(ChapterDTOEdit chapterDTOEdit)
+        public ChapterDTODetail Edit(ChapterDTOEdit chapterDTOEdit)
         {
             using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
-                return cnn.Query<ChapterDTOEdit>("Chapter_Edit", new { chapterDTOEdit.ChapterId, chapterDTOEdit.ChapterSrNo, chapterDTOEdit.Name, chapterDTOEdit.SubjectId, chapterDTOEdit.Notes }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
+                return cnn.Query<ChapterDTODetail>("Chapter_Edit", new { chapterDTOEdit.ChapterId, chapterDTOEdit.ChapterSrNo, chapterDTOEdit.Name, chapterDTOEdit.SubjectId, chapterDTOEdit.Notes }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 
-        public ChapterDTOEdit GetById(int id)
+        public ChapterDTODetail GetById(int id)
         {
             using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
-                return cnn.Query<ChapterDTOEdit>("Chapter_GetById", new { ChapterId = id }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
+                return cnn.Query<ChapterDTODetail>("Chapter_GetById", new { ChapterId = id }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 

@@ -8,9 +8,9 @@ namespace Growth.Repository.Interfaces
     public interface IChapter
     {
         List<ChapterDTOList> GetList(int SubjectId);
-        ChapterDTOEdit GetById(int id);
-        ChapterDTOEdit Add(ChapterDTOAdd chapterDTOAdd);
-        ChapterDTOEdit Edit(ChapterDTOEdit chapterDTOEdit);
+        ChapterDTODetail GetById(int id);
+        ChapterDTODetail Add(ChapterDTOAdd chapterDTOAdd);
+        ChapterDTODetail Edit(ChapterDTOEdit chapterDTOEdit);
         DeleteResponse Delete(int id);
         
     }

@@ -6,15 +6,16 @@ using System.Text;
 namespace Growth.Models
 {
     /// <summary>
-    /// To edit details of existing chapter
+    /// To edit details of particular Chapter
     /// </summary>
-    public class ChapterDTOEdit: ChapterDTOAdd
+    public class ChapterDTODetail: ChapterDTOAdd
     {
         public int ChapterId { get; set; }
-        
+        public string SubjectName { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }
     }
+   
 }

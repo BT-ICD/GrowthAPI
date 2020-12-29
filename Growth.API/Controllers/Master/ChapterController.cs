@@ -85,7 +85,13 @@ namespace Growth.API.Controllers.Master
             logger.LogInformation($"Updated chapter {result.ToString()}");
             return Ok(result);
         }
+        /// <summary>
+        /// To delete particular chapter record
+        /// </summary>
+        /// <param name="chapterId"></param>
+        /// <returns></returns>
         [HttpPost]
+        [Route("{chapterId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Delete(int chapterId)
         {

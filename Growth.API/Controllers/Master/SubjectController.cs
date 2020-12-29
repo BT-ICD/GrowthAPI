@@ -85,6 +85,7 @@ namespace Growth.API.Controllers.Master
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("{id:int}")]
         public IActionResult Delete(int id)
         {
             logger.LogInformation($"Delete subject with id {id}");
