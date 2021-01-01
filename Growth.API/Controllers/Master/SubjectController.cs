@@ -93,5 +93,17 @@ namespace Growth.API.Controllers.Master
             logger.LogInformation($"Deleted Subject Response: {result.ToString()}");
             return Ok(result);
         }
+        /// <summary>
+        /// To get list of subjects. Subject Id and Subject Name to fill dropdown (lookup values)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult Lookup()
+        {
+            var result = subject.Lookup();
+            logger.LogInformation($"Subjects count: {result.Count}");
+            return Ok(result);
+        }
     }
 }

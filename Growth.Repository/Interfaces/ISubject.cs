@@ -13,5 +13,7 @@ namespace Growth.Repository.Interfaces
         public SubjectDTODetail Edit(SubjectDTODetail subjectDTODetail);
 
         public DeleteResponse Delete(int subjectId);
+
+        List<SubjectDTOLookup> Lookup();
     }
 }

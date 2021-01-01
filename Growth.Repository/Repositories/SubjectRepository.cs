@@ -60,5 +60,13 @@ namespace Growth.Repository.Repositories
                 return cnn.Query<DeleteResponse>("Subject_Delete", new { SubjectId = subjectId }, null, false, null, CommandType.StoredProcedure).ToList().FirstOrDefault();
             }
         }
+
+        public List<SubjectDTOLookup> Lookup()
+        {
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                return cnn.Query<SubjectDTOLookup>("Subject_Lookup", null, null, false, null, CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }
