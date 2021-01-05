@@ -9,5 +9,6 @@ namespace Growth.Repository.Interfaces
     {
         List<BatchDTOList> GetList();
         BatchDTODetail GetById(int batchId);
+        List<BatchDTOLookup> Lookup();
     }
 }

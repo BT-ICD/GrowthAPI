@@ -53,5 +53,17 @@ namespace Growth.API.Controllers.Master
             logger.LogInformation($"Batch details: {result.ToString()}");
             return Ok(result);
         }
+        /// <summary>
+        /// To get list of batch. Batch Id and Code to fill dropdown (lookup values)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult Lookup()
+        {
+            var result = batch.Lookup();
+            logger.LogInformation($"Batch count: {result.Count}");
+            return Ok(result);
+        }
     }
 }

@@ -37,5 +37,12 @@ namespace Growth.Repository.Repositories
                 return cnn.Query<BatchDTOList>("Batch_List", null, null, false, null, CommandType.StoredProcedure).ToList();
             }
         }
+        public List<BatchDTOLookup> Lookup()
+        {
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                return cnn.Query<BatchDTOLookup>("Batch_Lookup", null, null, false, null, CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

@@ -63,6 +63,10 @@ namespace Growth.API.Controllers.Trans
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Add(ScheduleDTOAdd dTOAdd)
         {
+            //Convert Date to - TolocalTime
+            dTOAdd.LectureFrom = dTOAdd.LectureFrom.ToLocalTime();
+            dTOAdd.LectureTo = dTOAdd.LectureTo.ToLocalTime();
+
             logger.LogInformation($"Add new schedule {dTOAdd.ToString()}");
             var result = schedule.Add(dTOAdd);
             logger.LogInformation($"Schedule Add Result is {result.ToString()}");
@@ -77,6 +81,9 @@ namespace Growth.API.Controllers.Trans
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Edit(ScheduleDTOEdit dTOEdit)
         {
+            //Convert Date to - TolocalTime
+            dTOEdit.LectureFrom = dTOEdit.LectureFrom.ToLocalTime();
+            dTOEdit.LectureTo = dTOEdit.LectureTo.ToLocalTime();
             logger.LogInformation($"Edit schedule {dTOEdit.ToString()}");
             var result = schedule.Edit(dTOEdit);
             logger.LogInformation($"Schedule Edit Result is {result.ToString()}");
