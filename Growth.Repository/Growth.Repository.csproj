@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Growth.DAL\Growth.DAL.csproj" />
     <ProjectReference Include="..\Growth.Models\Growth.Models.csproj" />
+    <ProjectReference Include="..\UtilityLibrary\UtilityLibrary.csproj" />
   </ItemGroup>
 
 </Project>
