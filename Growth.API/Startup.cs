@@ -1,8 +1,10 @@
 
+using Growth.API.AuthData;
 using Growth.API.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,7 +27,15 @@ namespace Growth.API
             var connectionString = Configuration.GetConnectionString("cnn");
             Growth.Repository.Configure.ConfigureServices(services, connectionString);
             services.AddControllers();
-
+            //For Authentication related interface
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            //Authenticate Repository and Token options as dependency injection
+            services.AddScoped<IAuthenticate, AuthenticateRepository>();
+            services.Configure<TokenSettingsOptions>(Configuration.GetSection(TokenSettingsOptions.TokenSettings));
+            services.AddScoped<TokenGenerator>();
             //To add Swagger
             services.AddSwaggerGen();
             //To add CORS as extension method
@@ -39,6 +49,8 @@ namespace Growth.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            //To create new user
+            //SeedDB.Initialize(app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
 
             app.UseHttpsRedirection();
 
