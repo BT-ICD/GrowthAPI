@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Growth.DAL;
 using Growth.Models;
+using Growth.Models.Student;
 using Growth.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,14 @@ namespace Growth.Repository.Repositories
             using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
                 return cnn.Query<ScheduleDTOList>("Schedule_List", null, null, true, null, CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public List<ScheduleDTOStudent> GetListForStudent(string userName)
+        {
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                return cnn.Query<ScheduleDTOStudent>("Schedule_List_Student", new { UserName=userName }, null, true, null, CommandType.StoredProcedure).ToList();
             }
         }
     }

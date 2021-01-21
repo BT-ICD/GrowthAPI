@@ -1,6 +1,7 @@
 
 using Growth.API.AuthData;
 using Growth.API.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Growth.API
 {
@@ -40,6 +42,34 @@ namespace Growth.API
             services.AddSwaggerGen();
             //To add CORS as extension method
             services.ConfigureCors();
+
+            //Authentication
+            services.AddAuthentication(
+                options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                }
+                ).AddJwtBearer(
+                options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    //options.Audience = "GrowthApp";
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = "GrowthApp",
+                        ValidAudience = "GrowthApp",
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aaaaaaaaaaaaaaaa"))
+                    };
+                   
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +94,9 @@ namespace Growth.API
             app.UseRouting();
             //To enable CORS
             app.UseCors("_myAllowSpecificOrigins");
+
+            //Authentication
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
