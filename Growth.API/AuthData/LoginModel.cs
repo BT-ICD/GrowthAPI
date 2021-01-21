@@ -13,7 +13,7 @@ namespace Growth.API.AuthData
     public class LoginModel
     {
         [Required(ErrorMessage = "User name is required")]
-        public string Username { get; set; }
+        public string UserName { get; set; }
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
         public override string ToString()

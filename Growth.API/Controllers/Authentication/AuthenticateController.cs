@@ -31,11 +31,11 @@ namespace Growth.API.Controllers.Authentication
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login(LoginModel login)
         {
-            logger.LogInformation($"Login requested: {login.Username}");
+            logger.LogInformation($"Login requested: {login.UserName}");
             var result = await authenticate.AuthenticateUser(login);
             if (result==null)
                 return Unauthorized();
-            logger.LogInformation($"Token for login {login.Username} is generated {result.ToString()}");
+            logger.LogInformation($"Token for login {login.UserName} is generated {result.ToString()}");
             return Ok(result);
         }
     }

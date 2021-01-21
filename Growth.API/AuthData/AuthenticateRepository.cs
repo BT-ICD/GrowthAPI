@@ -18,7 +18,7 @@ namespace Growth.API.AuthData
         }
         public async Task<TokenModel> AuthenticateUser(LoginModel login)
         {
-            var user = await userManager.FindByNameAsync(login.Username);
+            var user = await userManager.FindByNameAsync(login.UserName);
             
             if (user != null && await userManager.CheckPasswordAsync(user, login.Password))
             {
