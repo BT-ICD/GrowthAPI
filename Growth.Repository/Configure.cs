@@ -18,6 +18,7 @@ namespace Growth.Repository
             services.AddScoped<IBatch, BatchRepository>();
             services.AddScoped<ISchedule, ScheduleRepository>();
             services.AddScoped<IAttendance, AttendanceRepository>();
+            services.AddScoped<IDashboard, DashboardRepository>();
         }
     }
 }

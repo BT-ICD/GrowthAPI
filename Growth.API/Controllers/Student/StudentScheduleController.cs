@@ -35,7 +35,7 @@ namespace Growth.API.Controllers.Student
         {
             logger.LogInformation($"Schedule list for user {userName}");
             var result = schedule.GetListForStudent(userName);
-            logger.LogInformation($"Schedule list count: {result.Count}");
+            logger.LogInformation($"Schedule list count: {result}");
             return Ok(result);
         }
     }
