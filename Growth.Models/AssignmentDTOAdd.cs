@@ -13,8 +13,6 @@ namespace Growth.Models
     {
         [Required(ErrorMessage ="Question Title is required")]
         public string QueTitle { get; set; }
-        [Required(ErrorMessage = "Question Text is required")]
-        public string QueText { get; set; }
         public string QueHtml { get; set; }
         public string Notes { get; set; }
 

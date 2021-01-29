@@ -9,7 +9,6 @@ namespace Growth.Models
     {
         public int AssignmentId { get; set; }
         public string QueTitle { get; set; }
-        public string QueText { get; set; }
         public string QueHtml { get; set; }
         public string Notes { get; set; }
 
