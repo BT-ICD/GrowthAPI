@@ -19,6 +19,8 @@ namespace Growth.Repository
             services.AddScoped<ISchedule, ScheduleRepository>();
             services.AddScoped<IAttendance, AttendanceRepository>();
             services.AddScoped<IDashboard, DashboardRepository>();
+            services.AddScoped<IAssignment, AssignmentRepository>();
+            
         }
     }
 }
