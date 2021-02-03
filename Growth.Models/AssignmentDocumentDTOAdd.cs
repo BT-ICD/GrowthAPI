@@ -1,22 +1,21 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Growth.Models
 {
     /// <summary>
-    /// To add new assignment
+    /// To add new document record for a particular assignment
     /// </summary>
-   public class AssignmentDTOAdd
+    public class AssignmentDocumentDTOAdd
     {
-        [Required(ErrorMessage ="Question Title is required")]
-        public string QueTitle { get; set; }
-        public string QueHtml { get; set; }
+        public int AssignmentId { get; set; }
+      
+        public int DocumentTypeId { get; set; }
+        public string ActualFileName { get; set; }
         public string Notes { get; set; }
-        public int SubjectId { get; set; }
-        
+
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);

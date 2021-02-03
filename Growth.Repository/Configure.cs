@@ -20,6 +20,7 @@ namespace Growth.Repository
             services.AddScoped<IAttendance, AttendanceRepository>();
             services.AddScoped<IDashboard, DashboardRepository>();
             services.AddScoped<IAssignment, AssignmentRepository>();
+            services.AddScoped<IAssignmentDocument, AssignmentDocumentRepository>();
             
         }
     }

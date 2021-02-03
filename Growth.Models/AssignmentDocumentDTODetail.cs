@@ -6,21 +6,23 @@ using System.Text;
 namespace Growth.Models
 {
     /// <summary>
-    /// To manipulate list of assignments
+    /// To get detail of particular assignment document
     /// </summary>
-    public class AssignmentDTOList
+    public class AssignmentDocumentDTODetail
     {
+        public int AssignmentDocumentId { get; set; }
         public int AssignmentId { get; set; }
         public string QueTitle { get; set; }
-        public string QueHtml { get; set; }
-        public string Notes{ get; set; }
-
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
+        public int DocumentTypeId { get; set; }
+        public string DocumentTypeName { get; set; }
+        public string ActualFileName { get; set; }
+        public string StoreAsFileName { get; set; }
+        public string Notes { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }
-
     }
 }

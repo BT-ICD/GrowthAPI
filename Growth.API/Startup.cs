@@ -1,6 +1,7 @@
 
 using Growth.API.AuthData;
 using Growth.API.Extensions;
+using Growth.API.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +38,8 @@ namespace Growth.API
             //Authenticate Repository and Token options as dependency injection
             services.AddScoped<IAuthenticate, AuthenticateRepository>();
             services.Configure<TokenSettingsOptions>(Configuration.GetSection(TokenSettingsOptions.TokenSettings));
+            services.Configure<MyAppSettingsOptions>(Configuration.GetSection(MyAppSettingsOptions.MyAppSettings));
+
             services.AddScoped<TokenGenerator>();
             //To add Swagger
             services.AddSwaggerGen();
