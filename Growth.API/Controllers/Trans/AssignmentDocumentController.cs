@@ -68,7 +68,7 @@ namespace Growth.API.Controllers.Trans
        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> AddAsync([FromForm] AssignmentDocumentDTOUploadAdd dTOUpload)
+        public async Task<IActionResult> Add([FromForm] AssignmentDocumentDTOUploadAdd dTOUpload)
         {
             if (dTOUpload.file == null)
             {
@@ -110,7 +110,7 @@ namespace Growth.API.Controllers.Trans
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> EditAsync([FromForm] AssignmentDocumentDTOUploadEdit dTOUpload)
+        public async Task<IActionResult> Edit([FromForm] AssignmentDocumentDTOUploadEdit dTOUpload)
         {
             if (dTOUpload.file != null)
             {

@@ -21,6 +21,7 @@ namespace Growth.Repository
             services.AddScoped<IDashboard, DashboardRepository>();
             services.AddScoped<IAssignment, AssignmentRepository>();
             services.AddScoped<IAssignmentDocument, AssignmentDocumentRepository>();
+            services.AddScoped<IDocumentType, DocumentTypeRepository>();
             
         }
     }
