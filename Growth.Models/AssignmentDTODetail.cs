@@ -11,7 +11,8 @@ namespace Growth.Models
         public string QueTitle { get; set; }
         public string QueHtml { get; set; }
         public string Notes { get; set; }
-
+        public int SubjectId { get; set; }
+        public string SubjectName { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
