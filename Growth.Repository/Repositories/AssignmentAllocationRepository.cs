@@ -25,7 +25,12 @@ namespace Growth.Repository.Repositories
         public RecordsAffectedResponse Add(AssignmentAllocationDTOAdd allocationDTOAdd)
         {
             using(IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+
             {
+                if (allocationDTOAdd.StudentIds == "")
+                {
+                    allocationDTOAdd.StudentIds = null;
+                }
                 return cnn.Query<RecordsAffectedResponse>("AssignmentAllocation_Insert", allocationDTOAdd, null,false,null,CommandType.StoredProcedure).FirstOrDefault();
             }
         }
