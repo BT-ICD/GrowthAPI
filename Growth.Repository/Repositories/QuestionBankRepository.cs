@@ -28,5 +28,13 @@ namespace Growth.Repository.Repositories
                 return cnn.Query<RecordsAffectedResponse>("Question_Insert", new { dTOAdd.Title, dTOAdd.HtmlText, dTOAdd.PlainText, dTOAdd.ChapterId, dTOAdd.QueTypeId, dTOAdd.Notes, AnswerXML },null,false,null,CommandType.StoredProcedure).FirstOrDefault();
             }
         }
+
+        public List<QuestionDTOList> GetList(int chapterId)
+        {
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                return cnn.Query<QuestionDTOList>("Question_List", new { ChapterId = chapterId }, null, false, null, CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

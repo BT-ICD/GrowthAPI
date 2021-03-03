@@ -34,5 +34,21 @@ namespace Growth.API.Controllers.Trans
             logger.LogInformation($"Result for add new question {dTOAdd.PlainText} is {result.ToString()}");
             return Ok(result);
         }
+        [HttpGet]
+        [Route("{ChapterId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetList(int ChapterId)
+        {
+            logger.LogInformation($"Get list of questions for chapter {ChapterId}");
+            var result = questionBank.GetList(ChapterId);
+            if (result == null)
+            {
+                logger.LogInformation($"No questions exist for chapter id {ChapterId} ");
+                return NotFound();
+            }
+            logger.LogInformation($"Number of questions for chapter id {ChapterId} is {result.Count}");
+            return Ok(result);
+        }
     }
 }

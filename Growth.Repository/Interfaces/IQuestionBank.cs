@@ -8,5 +8,6 @@ namespace Growth.Repository.Interfaces
     public interface IQuestionBank
     {
         RecordsAffectedResponse Add(QuestionDTOAdd dTOAdd);
+        List<QuestionDTOList> GetList(int chapterId);
     }
 }
