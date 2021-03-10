@@ -54,6 +54,8 @@ namespace Growth.Repository.Repositories
                     QuestionId = question.QuestionId,
                     HtmlText = question.HtmlText,
                     Title = question.Title,
+                    AnswerOptionId = question.AnswerOptionId,
+                    QuestionStatus= question.QuestionStatus,
                     Options = resultOptions.Where(C => C.QuestionId == question.QuestionId).ToList()
 
                 });

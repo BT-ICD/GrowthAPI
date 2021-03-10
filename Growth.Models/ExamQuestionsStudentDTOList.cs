@@ -20,6 +20,8 @@ namespace Growth.Models
         public int QuestionId { get; set; }
         public string Title { get; set; }
         public string HtmlText { get; set; }
+        public int AnswerOptionId { get; set; }
+        public int QuestionStatus { get; set; }
     }
     
         public class AnswerOptions
@@ -35,6 +37,8 @@ namespace Growth.Models
         public int QuestionId { get; set; }
         public string Title { get; set; }
         public string HtmlText { get; set; }
+        public int AnswerOptionId { get; set; }
+        public int QuestionStatus { get; set; }
         public List<AnswerOptions> Options{ get; set; }
     }
     public class ExamData
