@@ -21,13 +21,22 @@ namespace Growth.API.Controllers.Student
             this.examStudent = examStudent;
             this.logger = logger;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("{ExamId:int}/{StudentId:int}")]
-        public IActionResult GetExam(int ExamId, int StudentId)
+        public IActionResult StartExam(int ExamId, int StudentId)
         {
-            logger.LogInformation($"Get exam for Exam Id {ExamId} and Student Id {StudentId}");
-            var result = examStudent.GetQuestions(ExamId, StudentId);
-            logger.LogInformation("");
+            logger.LogInformation($"Start exam for Exam Id {ExamId} and Student Id {StudentId}");
+            var result = examStudent.CreateExam(ExamId, StudentId);
+            logger.LogInformation($"Result for Start exam for Exam Id {ExamId} and Student Id {StudentId} is {result.ToString()}");
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("{ExamStudentId}/{ExamId:int}/{StudentId:int}")]
+        public IActionResult GetExam(int ExamStudentId, int ExamId, int StudentId)
+        {
+            logger.LogInformation($"Get exam for Exam Studnet Id: {ExamStudentId} Exam Id {ExamId} and Student Id {StudentId}");
+            var result = examStudent.GetQuestions(ExamStudentId, ExamId, StudentId);
+            logger.LogInformation($"Retrieved exam for Exam Student Id {result.ExamStudentId}");
             return Ok(result);
         }
         /// <summary>
@@ -41,6 +50,15 @@ namespace Growth.API.Controllers.Student
             logger.LogInformation($"Submit Answer for {answerDTOUpdate.ToString()}");
             var result = examStudent.SubmitAnswer(answerDTOUpdate);
             logger.LogInformation($"Submit Answer Result for {answerDTOUpdate.ToString()} is {result.ToString()}");
+            return Ok(result);
+        }
+        [HttpPost]
+        [Route("{ExamStudentId}/{ExamId}/{StudentId}")]
+        public IActionResult FinishExam(int ExamStudentId, int ExamId, int StudentId)
+        {
+            logger.LogInformation($"Finish Exam For ExamStudentId: {ExamStudentId} ExamId: {ExamId} and StudentId: {StudentId}");
+            var result = examStudent.FinishExam(ExamStudentId, ExamId, StudentId);
+            logger.LogInformation($"Finish Exam Result For ExamStudentId: {ExamStudentId} ExamId: {ExamId} and StudentId: {StudentId} is {result.ToString()}");
             return Ok(result);
         }
     }

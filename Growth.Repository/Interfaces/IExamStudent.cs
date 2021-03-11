@@ -7,7 +7,11 @@ namespace Growth.Repository.Interfaces
 {
     public interface IExamStudent
     {
-        ExamData GetQuestions(int ExamId, int StudentId);
+        ExamData GetQuestions(int ExamStudentId, int ExamId, int StudentId);
         ExamAnswerDTOUpdate SubmitAnswer(ExamAnswerDTOUpdate answerDTOUpdate);
+
+        DataUpdateResponseDTO CreateExam(int ExamId, int StudentId);
+        DataUpdateResponseDTO FinishExam(int ExamStudentId, int ExamId, int StudentId);
+
     }
 }

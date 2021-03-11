@@ -18,16 +18,41 @@ namespace Growth.Repository.Repositories
         {
             this.appConnectionString = appConnectionString;
         }
+        /// <summary>
+        /// To create new exam into ExamStudent Return ExamStudentId
+        /// </summary>
+        /// <param name="ExamId"></param>
+        /// <param name="StudentId"></param>
+        /// <returns></returns>
+        public DataUpdateResponseDTO CreateExam(int ExamId, int StudentId)
+        {
+            using(IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                return cnn.Query<DataUpdateResponseDTO>("ExamCreateForStudent", new { ExamId, StudentId }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
 
-        public ExamData GetQuestions(int ExamId, int StudentId)
+        public DataUpdateResponseDTO FinishExam(int ExamStudentId, int ExamId, int StudentId)
+        {
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                return cnn.Query<DataUpdateResponseDTO>("ExamStudentFinish", new { ExamStudentId, ExamId, StudentId }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
+        public ExamData GetQuestions(int ExamStudentId, int ExamId, int StudentId)
         {
             ExamData examData = new ExamData();
             ExamStudentDTO examStudentDTO=null;
             List<ExamQuestionDTO> examQuestionDTO=null;
             List<AnswerOptions> resultOptions = null;
+           
+
+            //Fetch Exam Based on Exam Student Id
+
             using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
-                var result = cnn.QueryMultiple("ExamQuestionsForStudent", new { ExamId, StudentId },null,null,CommandType.StoredProcedure);
+                var result = cnn.QueryMultiple("ExamQuestionsForStudent", new { ExamStudentId,ExamId, StudentId },null,null,CommandType.StoredProcedure);
                 //Read First ResultSet
                 if (!result.IsConsumed)
                 {
