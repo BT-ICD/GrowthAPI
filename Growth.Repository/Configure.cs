@@ -27,6 +27,7 @@ namespace Growth.Repository
             services.AddScoped<IQuestionBank, QuestionBankRepository>();
             services.AddScoped<IQueType, QueTypeRepository>();
             services.AddScoped<IExamStudent, ExamStudentRepository>();
+            services.AddScoped<IExam, ExamRepository>();
 
         }
     }
