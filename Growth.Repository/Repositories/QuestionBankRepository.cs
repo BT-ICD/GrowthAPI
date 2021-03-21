@@ -21,19 +21,19 @@ namespace Growth.Repository.Repositories
 
         public RecordsAffectedResponse Add(QuestionDTOAdd dTOAdd)
         {
-            using(IDbConnection cnn= new SqlConnection(appConnectionString.ConnectionString))
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
                 //to create XML string from answers collection
                 string AnswerXML = UtilityLibrary.XmlUtil.GetXMLString(dTOAdd.AnswerOptions);
-                return cnn.Query<RecordsAffectedResponse>("Question_Insert", new { dTOAdd.Title, dTOAdd.HtmlText, dTOAdd.PlainText, dTOAdd.ChapterId, dTOAdd.QueTypeId, dTOAdd.Notes, AnswerXML },null,false,null,CommandType.StoredProcedure).FirstOrDefault();
+                return cnn.Query<RecordsAffectedResponse>("Question_Insert", new { dTOAdd.Title, dTOAdd.HtmlText, dTOAdd.PlainText, dTOAdd.ChapterId, dTOAdd.QueTypeId, dTOAdd.Notes, AnswerXML }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
             }
         }
-
-        public List<QuestionDTOList> GetList(int chapterId)
+        
+        public List<QuestionDTOList> GetList(int subjectId, int? chapterId)
         {
             using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
-                return cnn.Query<QuestionDTOList>("Question_List", new { ChapterId = chapterId }, null, false, null, CommandType.StoredProcedure).ToList();
+                return cnn.Query<QuestionDTOList>("Question_List", new { SubjectId= subjectId ,ChapterId = chapterId }, null, false, null, CommandType.StoredProcedure).ToList();
             }
         }
     }

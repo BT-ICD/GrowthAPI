@@ -35,19 +35,23 @@ namespace Growth.API.Controllers.Trans
             return Ok(result);
         }
         [HttpGet]
-        [Route("{ChapterId:int}")]
+        [Route("{SubjectId:int}/{ChapterId:int=-1}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetList(int ChapterId)
+        public IActionResult GetList(int SubjectId, int? ChapterId=-1)
         {
-            logger.LogInformation($"Get list of questions for chapter {ChapterId}");
-            var result = questionBank.GetList(ChapterId);
+            logger.LogInformation($"Get list of questions for SubjectId {SubjectId} chapter {ChapterId}");
+            if (ChapterId == -1)
+            {
+                ChapterId = null;
+            }
+            var result = questionBank.GetList(SubjectId, ChapterId);
             if (result == null)
             {
-                logger.LogInformation($"No questions exist for chapter id {ChapterId} ");
+                logger.LogInformation($"No questions exist for SubjectId {SubjectId}  chapter id {ChapterId} ");
                 return NotFound();
             }
-            logger.LogInformation($"Number of questions for chapter id {ChapterId} is {result.Count}");
+            logger.LogInformation($"Number of questions for SubjectId {SubjectId} chapter id {ChapterId} is {result.Count}");
             return Ok(result);
         }
     }
