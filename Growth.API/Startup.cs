@@ -1,4 +1,5 @@
 
+using Growth.API.AppRepository;
 using Growth.API.AuthData;
 using Growth.API.Extensions;
 using Growth.API.Models;
@@ -37,9 +38,10 @@ namespace Growth.API
                 .AddDefaultTokenProviders();
             //Authenticate Repository and Token options as dependency injection
             services.AddScoped<IAuthenticate, AuthenticateRepository>();
+            services.AddScoped<IAppUser, AppUserRepository>();
+
             services.Configure<TokenSettingsOptions>(Configuration.GetSection(TokenSettingsOptions.TokenSettings));
             services.Configure<MyAppSettingsOptions>(Configuration.GetSection(MyAppSettingsOptions.MyAppSettings));
-
             services.AddScoped<TokenGenerator>();
             //To add Swagger
             services.AddSwaggerGen();
@@ -83,7 +85,7 @@ namespace Growth.API
                 app.UseDeveloperExceptionPage();
             }
             //To create new user
-            //SeedDB.Initialize(app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
+            SeedDB.Initialize(app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider);
 
             app.UseHttpsRedirection();
 
