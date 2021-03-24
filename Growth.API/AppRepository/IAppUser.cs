@@ -11,6 +11,7 @@ namespace Growth.API.AppRepository
     {
         Task<DataUpdateResponseDTO> CreateUserAsync(AppUser appUser);
         bool IsUserNameExist(String userName);
+        List<AppUserDTOList> GetList();
 
     }
 }

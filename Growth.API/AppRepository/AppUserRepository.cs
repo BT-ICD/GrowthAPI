@@ -43,5 +43,10 @@ namespace Growth.API.AppRepository
             var result = userManager.Users.Where(obj => obj.UserName.Equals(userName)).FirstOrDefault();
             return !(result == null);
         }
+        public List<AppUserDTOList> GetList()
+        {
+            var result = (from t in userManager.Users select new AppUserDTOList() { UserName = t.UserName, Email = t.Email }).ToList();
+            return result;
+        }
     }
 }

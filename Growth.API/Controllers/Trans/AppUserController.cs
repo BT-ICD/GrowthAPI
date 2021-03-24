@@ -51,5 +51,16 @@ namespace Growth.API.Controllers.Trans
             logger.LogInformation($"result for username exist for {userName} is {result}");
             return Ok(new { result }); 
         }
+        /// <summary>
+        /// To get list of users
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GetList()
+        {
+            var result = appUser.GetList();
+            logger.LogInformation($"Number of users {result.Count}");
+            return Ok(result);
+        }
     }
 }
