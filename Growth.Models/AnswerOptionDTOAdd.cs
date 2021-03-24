@@ -12,7 +12,7 @@ namespace Growth.Models
     {
         public string HtmlText { get; set; }
         public string PlainText { get; set; }
-
+        public bool IsCorrect { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
