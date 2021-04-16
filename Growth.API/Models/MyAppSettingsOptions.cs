@@ -9,5 +9,6 @@ namespace Growth.API.Models
     {
         public const string MyAppSettings = "MyAppSettings";
         public string AssignmentDocuments { get; set; }
+        public string StudentAssignments { get; set; }
     }
 }

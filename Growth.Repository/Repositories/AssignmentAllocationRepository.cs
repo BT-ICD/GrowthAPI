@@ -43,5 +43,12 @@ namespace Growth.Repository.Repositories
                 return cnn.Query<AllocatedAssignment>("AssignmentAllocation_List_Student", new { UserName = userName, Status = status }, null, true, null, CommandType.StoredProcedure).ToList();
             }
         }
+        public AllocatedAssignment GetById(int AssignmentAllocationId)
+        {
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                return cnn.Query<AllocatedAssignment>("AssignmentAllocation_GetById_Student", new { AssignmentAllocationId }, null, true, null, CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
     }
 }

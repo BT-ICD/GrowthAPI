@@ -13,6 +13,7 @@ namespace Growth.Models
         public string Notes { get; set; }
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
+        public bool IsFileSubmitRequired { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
