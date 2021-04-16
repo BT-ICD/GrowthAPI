@@ -16,7 +16,7 @@ namespace Growth.Models
         public string QueHtml { get; set; }
         public string Notes { get; set; }
         public int SubjectId { get; set; }
-        
+        public bool IsFileSubmitRequired { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);

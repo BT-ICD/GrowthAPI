@@ -10,6 +10,7 @@ namespace Growth.Repository.Interfaces
     {
         RecordsAffectedResponse Add(AssignmentAllocationDTOAdd allocationDTOAdd);
         List<AllocatedAssignment> AssignmentAllocationList(string userName, int? status=null);
+        AllocatedAssignment GetById(int AssignmentAllocationId);
 
     }
 }

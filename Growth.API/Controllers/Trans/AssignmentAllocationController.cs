@@ -15,10 +15,12 @@ namespace Growth.API.Controllers.Trans
     public class AssignmentAllocationController : ControllerBase
     {
         private readonly IAssignmentAllocation assignmentAllocation;
+        private readonly IAssignmentLog assignmentLog;
         private readonly ILogger<AssignmentAllocationController> logger;
-        public AssignmentAllocationController(IAssignmentAllocation assignmentAllocation, ILogger<AssignmentAllocationController> logger)
+        public AssignmentAllocationController(IAssignmentAllocation assignmentAllocation, IAssignmentLog assignmentLog,  ILogger<AssignmentAllocationController> logger)
         {
             this.assignmentAllocation = assignmentAllocation;
+            this.assignmentLog = assignmentLog;
             this.logger = logger;
         }
         /// <summary>
@@ -37,5 +39,32 @@ namespace Growth.API.Controllers.Trans
             return Ok(result);
 
         }
+        /// <summary>
+        /// To update Status of an assignment with comments for a particular allocated assignment 
+        /// </summary>
+        /// <param name="assignmentLogDTOAdd"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult UpdateAssignmentStatus(AssignmentLogDTOAdd assignmentLogDTOAdd)
+        {
+            //To do - TO provide user name from current logged in session
+            //To allow file upload 
+            logger.LogInformation($"Update status of assignment allocation: {assignmentLogDTOAdd}");
+            var result = assignmentLog.Add(assignmentLogDTOAdd);
+            logger.LogInformation($"Assignment status of allocation {assignmentLogDTOAdd} is updated with result {result}");
+            return Ok(result);
+            
+        }
+        [HttpGet]
+        [Route("{AssignmentAllocationId:int}")]
+        public IActionResult LogList(int AssignmentAllocationId)
+        {
+            logger.LogInformation($"Get log list for assignment allocation with Id: {AssignmentAllocationId}");
+            var result = assignmentLog.GetList(AssignmentAllocationId);
+            logger.LogInformation($"List of log count for assignment allocation with Id: {AssignmentAllocationId} is {result.Count}");
+            return Ok(result);
+        }
+       
     }
 }
