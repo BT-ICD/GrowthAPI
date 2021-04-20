@@ -79,6 +79,20 @@ namespace Growth.API.Controllers.Trans
             logger.LogInformation($"Assignment delete result for assignment id {assignmentId}: {result.ToString()}");
             return Ok(result);
         }
+        /// <summary>
+        /// To assignment submission details for a particular assignment by status
+        /// </summary>
+        /// <param name="AssignmentId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{AssignmentId:int}")]
+        public IActionResult ReviewList(int AssignmentId)
+        {
+            logger.LogInformation($"Assignment Review List for {AssignmentId}");
+            var result = assignment.GetReviewList(AssignmentId);
+            //logger.LogInformation($"Assignment review list  result for assignment id {AssignmentId}: {result.assignmentDTODetail.ToString()} and summary count {}");
+            return Ok(result);
+        }
 
     }
 }
