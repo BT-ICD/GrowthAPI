@@ -58,5 +58,23 @@ namespace Growth.Repository.Repositories
                 return cnn.Query<AssignmentDTOList>("Assignment_List", null, null, false, null, CommandType.StoredProcedure).ToList();
             }
         }
+
+        public AssignmentReviewDTOList GetReviewList(int AssignmentId)
+        {
+            AssignmentReviewDTOList obj = new AssignmentReviewDTOList();
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                var result = cnn.QueryMultiple("Assignment_ReviewList", new { AssignmentId }, null, null, CommandType.StoredProcedure);
+                if (!result.IsConsumed)
+                {
+                    obj.assignmentDTODetail = result.Read<AssignmentDTODetail>().FirstOrDefault();
+                }
+                if (!result.IsConsumed)
+                {
+                    obj.StatusSummaries = result.Read<AssignmentStatusSummary>().ToList();
+                }
+            }
+            return obj;
+        }
     }
 }
