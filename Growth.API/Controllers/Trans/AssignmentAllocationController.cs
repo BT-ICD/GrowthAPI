@@ -65,6 +65,23 @@ namespace Growth.API.Controllers.Trans
             logger.LogInformation($"List of log count for assignment allocation with Id: {AssignmentAllocationId} is {result.Count}");
             return Ok(result);
         }
-       
+        /// <summary>
+        /// To get list of students for which we have to review a particular assignment for a particular status
+        /// This allows faculty to review particular assignment submission for a particular student
+        /// </summary>
+        /// <param name="AssignmentId"></param>
+        /// <param name="Status"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{AssignmentId:int}/{Status:int}")]
+        public IActionResult ReviewListStudentByStatus(int AssignmentId, int Status)
+        {
+            logger.LogInformation($"Get log list for assignment log summary with AssignmentId: {AssignmentId} and Status {Status}");
+            var result = assignmentLog.ReviewListStudentByStatus(AssignmentId,Status);
+            logger.LogInformation($"List of log count for assignment allocation by status with AssignmentId: {AssignmentId} is {result.Count}");
+            return Ok(result);
+        }
+
+
     }
 }
