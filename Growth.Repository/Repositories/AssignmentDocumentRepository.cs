@@ -49,7 +49,13 @@ namespace Growth.Repository.Repositories
                 return cnn.Query<AssignmentDocumentDTODetail>("AssignmentDocument_GetById", new { AssignmentDocumentId = assignmentDocumentId }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
             }
         }
-
+        public AssignmentDocumentDTODetail GetByAssignmentId(int AssignmentId)
+        {
+            using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
+            {
+                return cnn.Query<AssignmentDocumentDTODetail>("AssignmentDocument_GetByAssignmentId", new { AssignmentId }, null, false, null, CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
         public List<AssignmentDocumentDTOList> GetList(int assignmentId)
         {
             using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Growth.API.Models;
@@ -17,15 +18,17 @@ namespace Growth.API.Controllers.Student
     public class StudentAssignmentController : ControllerBase
     {
         private readonly IAssignmentAllocation assignmentAllocation;
+        private readonly IAssignmentDocument assignmentDocument;
         private readonly IAssignmentLog assignmentLog;
         private readonly MyAppSettingsOptions myAppSettingsOptions;
         private readonly ILogger<StudentAssignmentController> logger;
 
-        public StudentAssignmentController(IAssignmentAllocation assignmentAllocation, IAssignmentLog assignmentLog, IOptions<MyAppSettingsOptions> myAppSettingsOptions, ILogger<StudentAssignmentController>  logger)
+        public StudentAssignmentController(IAssignmentAllocation assignmentAllocation, IAssignmentDocument assignmentDocument, IAssignmentLog assignmentLog, IOptions<MyAppSettingsOptions> myAppSettingsOptions, ILogger<StudentAssignmentController>  logger)
         {
             this.assignmentAllocation = assignmentAllocation;
             this.assignmentLog = assignmentLog;
             this.myAppSettingsOptions = myAppSettingsOptions.Value;
+            this.assignmentDocument = assignmentDocument;
             this.logger = logger;
         }
         //Todo: How to define optional route parameter
@@ -97,6 +100,31 @@ namespace Growth.API.Controllers.Student
                 }
             }
             return Ok(result);
+        }
+        /// <summary>
+        /// To download particular assignment document 
+        /// </summary>
+        /// <param name="AssignmentId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{AssignmentId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Download(int AssignmentId)
+        {
+            var result = assignmentDocument.GetByAssignmentId(AssignmentId);
+            if (result == null)
+                return NotFound();
+            string fileName = result.StoreAsFileName;
+            var documentFolderName = myAppSettingsOptions.AssignmentDocuments;
+            var path = Path.Combine(AppContext.BaseDirectory, documentFolderName, fileName);
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/octet-stream", fileName);
         }
     }
 }

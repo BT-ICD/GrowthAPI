@@ -14,6 +14,7 @@ namespace Growth.Repository.Interfaces
         AssignmentDocumentDTODetail Edit(AssignmentDocumentDTOEdit dTOEdit);
 
         DeleteResponse Delete(int assignmentDocumentId);
+        AssignmentDocumentDTODetail GetByAssignmentId(int AssignmentId);
 
 
     }
