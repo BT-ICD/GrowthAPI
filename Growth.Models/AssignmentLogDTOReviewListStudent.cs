@@ -17,8 +17,10 @@ namespace Growth.Models
         public int StudentId { get; set; }
         public int AssignmentAllocationId { get; set; }
         public DateTime SubmittedOn { get; set; }
-
-        public override string ToString()
+        public int AssignmentLogId { get; set; }
+        public string Comments { get; set; }
+        public string ActualFileName { get; set; }
+    public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
         }

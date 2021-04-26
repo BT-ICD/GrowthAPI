@@ -78,7 +78,7 @@ namespace Growth.API.Controllers.Student
             {
                 AssignmentAllocationId = assignmentDTOSubmit.AssignmentAllocationId,
                 Status = 2,
-                UserName ="Stu@1",
+                UserName = User.Identity.Name,
                 ActualFileName = actualFileName,
                 Comments = assignmentDTOSubmit.Comments
             };

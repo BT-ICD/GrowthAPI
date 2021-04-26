@@ -42,11 +42,11 @@ namespace Growth.Repository.Repositories
                 return cnn.Query<AssignmentLogDTODetail>("AssignmentLog_List", new { AssignmentAllocationId }, null, false, null, CommandType.StoredProcedure).ToList();
             }
         }
-        public List<AssignmentLogDTOReviewListStudent> ReviewListStudentByStatus(int AssignmentId, int Status)
+        public List<AssignmentLogDTOReviewListStudent> ReviewListStudentByStatus(int AssignmentId, int Status, int? StudentId)
         {
             using (IDbConnection cnn = new SqlConnection(appConnectionString.ConnectionString))
             {
-                return cnn.Query<AssignmentLogDTOReviewListStudent>("AssignmentLog_ReviewList_Student", new { AssignmentId, Status}, null, false, null, CommandType.StoredProcedure).ToList();
+                return cnn.Query<AssignmentLogDTOReviewListStudent>("AssignmentLog_ReviewList_Student", new { AssignmentId, Status, StudentId }, null, false, null, CommandType.StoredProcedure).ToList();
             }
         }
 

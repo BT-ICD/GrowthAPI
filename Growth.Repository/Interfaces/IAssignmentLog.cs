@@ -11,7 +11,7 @@ namespace Growth.Repository.Interfaces
         AssignmentLogDTODetail GetById(int AssignmentLogId);
 
         AssignmentLogDTODetail Add(AssignmentLogDTOAdd assignmentLogDTOAdd);
-        List<AssignmentLogDTOReviewListStudent> ReviewListStudentByStatus(int AssignmentId, int Status);
+        List<AssignmentLogDTOReviewListStudent> ReviewListStudentByStatus(int AssignmentId, int Status, int? StudentId);
 
 
     }

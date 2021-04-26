@@ -15,4 +15,5 @@ namespace Growth.Models
         public string ActualFileName { get; set; }
         public string UserName { get; set; }
     }
+   
 }

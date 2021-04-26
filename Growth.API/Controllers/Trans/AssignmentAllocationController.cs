@@ -56,6 +56,22 @@ namespace Growth.API.Controllers.Trans
             return Ok(result);
             
         }
+        /// <summary>
+        /// To update review notes and status from faculty
+        /// </summary>
+        /// <param name="assignmentLogDTOAdd"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult SubmitReview(AssignmentLogDTOAdd assignmentLogDTOAdd)
+        {
+            assignmentLogDTOAdd.UserName = User.Identity.Name;
+            logger.LogInformation($"Update status of assignment allocation: {assignmentLogDTOAdd}");
+            var result = assignmentLog.Add(assignmentLogDTOAdd);
+            logger.LogInformation($"Assignment status of allocation {assignmentLogDTOAdd} is updated with result {result}");
+            return Ok(result);
+
+        }
         [HttpGet]
         [Route("{AssignmentAllocationId:int}")]
         public IActionResult LogList(int AssignmentAllocationId)
@@ -73,11 +89,15 @@ namespace Growth.API.Controllers.Trans
         /// <param name="Status"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{AssignmentId:int}/{Status:int}")]
-        public IActionResult ReviewListStudentByStatus(int AssignmentId, int Status)
+        [Route("{AssignmentId:int}/{Status:int}/{StudentId:int?}")]
+        public IActionResult ReviewListStudentByStatus(int AssignmentId, int Status, int? StudentId=-1)
         {
+            if (StudentId == -1)
+            {
+                StudentId = null;
+            }
             logger.LogInformation($"Get log list for assignment log summary with AssignmentId: {AssignmentId} and Status {Status}");
-            var result = assignmentLog.ReviewListStudentByStatus(AssignmentId,Status);
+            var result = assignmentLog.ReviewListStudentByStatus(AssignmentId,Status, StudentId);
             logger.LogInformation($"List of log count for assignment allocation by status with AssignmentId: {AssignmentId} is {result.Count}");
             return Ok(result);
         }
