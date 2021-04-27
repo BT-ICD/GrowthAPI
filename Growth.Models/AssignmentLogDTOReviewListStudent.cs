@@ -19,7 +19,7 @@ namespace Growth.Models
         public DateTime SubmittedOn { get; set; }
         public int AssignmentLogId { get; set; }
         public string Comments { get; set; }
-        public string ActualFileName { get; set; }
+        public string StoredAsFilename { get; set; }
     public override string ToString()
         {
             return JsonConvert.SerializeObject(this);

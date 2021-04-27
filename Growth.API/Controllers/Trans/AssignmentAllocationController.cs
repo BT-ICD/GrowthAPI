@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Growth.API.Models;
 using Growth.Models;
 using Growth.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Growth.API.Controllers.Trans
 {
@@ -17,11 +20,13 @@ namespace Growth.API.Controllers.Trans
         private readonly IAssignmentAllocation assignmentAllocation;
         private readonly IAssignmentLog assignmentLog;
         private readonly ILogger<AssignmentAllocationController> logger;
-        public AssignmentAllocationController(IAssignmentAllocation assignmentAllocation, IAssignmentLog assignmentLog,  ILogger<AssignmentAllocationController> logger)
+        private readonly MyAppSettingsOptions myAppSettingOptions;
+        public AssignmentAllocationController(IAssignmentAllocation assignmentAllocation, IAssignmentLog assignmentLog,  ILogger<AssignmentAllocationController> logger, IOptions<MyAppSettingsOptions> myAppSettingOptions)
         {
             this.assignmentAllocation = assignmentAllocation;
             this.assignmentLog = assignmentLog;
             this.logger = logger;
+            this.myAppSettingOptions = myAppSettingOptions.Value;
         }
         /// <summary>
         /// To allocate assignment to all the students of a batch or some of the students of a batch
@@ -101,7 +106,42 @@ namespace Growth.API.Controllers.Trans
             logger.LogInformation($"List of log count for assignment allocation by status with AssignmentId: {AssignmentId} is {result.Count}");
             return Ok(result);
         }
+        /// <summary>
+        /// To download document submitted by student for a particular assignment submission
+        /// </summary>
+        /// <param name="AssignmentLogId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{AssignmentLogId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DownloadSubmittedDocumentAsync(int AssignmentLogId)
+        {
+            logger.LogInformation($"Download Submitted Document for AssignmentLogId: {AssignmentLogId}");
+            var result = assignmentLog.GetById(AssignmentLogId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            if ((result.StoredAsFilename + "") == "")
+            {
+                return NotFound();
+            }
+            var documentFolderName = myAppSettingOptions.StudentAssignments;
+            var path = Path.Combine(AppContext.BaseDirectory, documentFolderName, result.StoredAsFilename);
+            if (!System.IO.File.Exists(path))
+            {
+                return NotFound();
+            }
 
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/octet-stream", result.StoredAsFilename);
+        }
 
     }
 }
